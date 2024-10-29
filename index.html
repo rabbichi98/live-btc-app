@@ -1,0 +1,65 @@
+<html>
+<head>
+<title>Live BTC App by kamal Sir</title>
+
+<style>
+
+*{font-size:40px; font-family:Calibri;}
+body{background-color:azure;}
+h2{  border:solid; border-radius:30px; width:80%;}
+input[type=radio]{width:2%;height:0.5em;}
+
+</style>
+
+</head>
+
+
+<body>
+<center>
+
+<h1>Live BTC App </h1>
+
+<form onsubmit="find()">
+<input type="radio" name="c" id="USD" checked=true/>USD
+<input type="radio" name="c" id="GBP" />GBP
+<input type="radio" name="c" id="EUR" />EUR
+<br/><br/>
+<input type="submit" value="Get Live BTC Rates"/>
+
+</form>
+
+<h2 id="msg" />
+
+<script>
+
+function find()
+{
+event.preventDefault();
+let  USD= document.getElementById("USD");
+let  GBP= document.getElementById("GBP");
+let  EUR= document.getElementById("EUR");
+let msg = document.getElementById("msg");
+
+
+let url="https://api.coindesk.com/v1/bpi/currentprice.json";
+
+
+fetch(url)
+.then(res => res.json())
+.then(data => {
+if(USD.checked)
+msg.innerHTML= data.bpi.USD.symbol + data.bpi.USD.rate;
+else if(GBP.checked)
+msg.innerHTML=data.bpi.GBP.symbol + data.bpi.GBP.rate;
+else
+msg.innerHTML=data.bpi.EUR.symbol + data.bpi.EUR.rate;
+})
+
+.catch(err=>alert("issue" + err));
+}
+</script>
+
+</center>
+</body>
+
+</html>
